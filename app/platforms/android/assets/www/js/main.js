@@ -157,7 +157,11 @@ var arrayDePaths = [
 	'music/24.mp3'
 ]
 
-document.addEventListener("deviceready", console.log('ready'), false);
+document.addEventListener("deviceready", function(){
+	for (var i = 0 ; i < arrayDeMusicas.length; i++) {
+		document.getElementById('minhaPlaylist').innerHTML += '<li class="audioList" id="'+i+'" onclick="playSong('+i+')">'+arrayDeMusicas[i]+'</li>'
+	};
+}, false);
 
 $(document).ready(function(){
 	
@@ -167,18 +171,8 @@ $(document).ready(function(){
 	$('#playlistBtn').on('click touch',function(){mostrarTela('.scene2')})
 	$('#fotosBtn').on('click touch',function(){mostrarTela('.scene3')})
 	$('#introBtn').on('click touch',function(){$('.intro').fadeOut(500)})
-
-
-	//Adicionando itens na playlist
-	for (var i = 0 ; i < arrayDeMusicas.length; i++) {
-		document.getElementById('minhaPlaylist').innerHTML += '<li class="audioList" id="'+i+'" onclick="playSong('+i+')">'+arrayDeMusicas[i]+'</li>'
-	};
 	
 })
-
-function onDeviceReady() {
-    playAudio("http://audio.ibeat.org/content/p1rj1s/p1rj1s_-_rockGuitar.mp3");
-}
 
 function onSuccess() {
     console.log("playAudio():Audio Success");
@@ -197,7 +191,6 @@ function playSong(e){
 	$('.playerHolder').append('<audio controls id="audioPlayer"></audio>')
 	$('#audioPlayer').append('<source src="'+arrayDePaths[e]+'" type="audio/mpeg" />') 
 	*/
-	
 	var concatenador = "http://stepstudio.com.br/oed/elisa/"+arrayDePaths[e];
 	my_media = new Media(concatenador, onSuccess, onError);
 	my_media.play();
